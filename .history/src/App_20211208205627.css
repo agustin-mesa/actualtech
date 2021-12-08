@@ -31,10 +31,6 @@ code {
     monospace;
 }
 
-button {
-  cursor: pointer;
-}
-
 .material-icons {
   font-family: "Material Icons";
   font-weight: normal;

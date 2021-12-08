@@ -16,7 +16,7 @@
   --bg__06: #e25c42;
   --bg__07: rgba(250, 101, 71, 0.8);
 
-  --shadow__01: rgba(100, 100, 100, 0.8);
+  --shadow__01: rgba(100, 100, 100, 0.5);
 }
 
 body {
@@ -29,10 +29,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-button {
-  cursor: pointer;
 }
 
 .material-icons {

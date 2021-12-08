@@ -1,27 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-:root {
-  --text__01: #444444;
-  --text__02: #251bcd;
-  --text__03: #fa6647;
-  --text__04: #544ccc;
-  --text__05: #ffffff;
-  --text__06: rgba(68, 68, 68, 0.5); /* #444444 con opacidad */
-
-  --bg__01: #444444;
-  --bg__02: #251bcd;
-  --bg__03: rgb(23, 18, 122);
-  --bg__04: rgba(36, 27, 205, 0.8);
-  --bg__05: #fa6647;
-  --bg__06: #e25c42;
-  --bg__07: rgba(250, 101, 71, 0.8);
-
-  --shadow__01: rgba(100, 100, 100, 0.8);
-}
-
 body {
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -29,10 +12,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-button {
-  cursor: pointer;
 }
 
 .material-icons {

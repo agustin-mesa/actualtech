@@ -10,13 +10,12 @@
 
   --bg__01: #444444;
   --bg__02: #251bcd;
-  --bg__03: rgb(23, 18, 122);
-  --bg__04: rgba(36, 27, 205, 0.8);
-  --bg__05: #fa6647;
-  --bg__06: #e25c42;
-  --bg__07: rgba(250, 101, 71, 0.8);
+  --bg__03: rgba(36, 27, 205, 0.5);
+  --bg__04: #fa6647;
+  --bg__05: rgba(250, 101, 71, 0.5);
+  --bg__06: #544ccc;
 
-  --shadow__01: rgba(100, 100, 100, 0.8);
+  --shadow__01: rgba(100, 100, 100, 0.5);
 }
 
 body {
@@ -29,10 +28,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-button {
-  cursor: pointer;
 }
 
 .material-icons {
