@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 //-----------------IMAGES-----------------
-import logo from "../assets/images/logo.png";
+import logo from "../assets/logos/logo.png";
+//-----------------COMPONENTS-----------------
+import CartWidget from "./CartWidget";
+import PhotoPerfil from "./PhotoPerfil";
 
-const NavBar = () => {
+const NavBar = ({ sesionIniciada }) => {
   return (
     <header>
       <ContainerNavBar>
@@ -25,7 +28,14 @@ const NavBar = () => {
           </li>
         </ul>
         <div className="navbar__menu">
-          <button>Iniciar sesión</button>
+          {sesionIniciada ? (
+            <>
+              <CartWidget cantidad="7" />
+              <PhotoPerfil />
+            </>
+          ) : (
+            <button>Iniciar sesión</button>
+          )}
         </div>
       </ContainerNavBar>
     </header>

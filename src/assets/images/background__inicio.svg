@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="1280px" height="720px" viewBox="0 0 1280 720" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <rect width="1280" height="720" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="HD" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="#FFFFFF" />
+    <path d="M-452 302.556L-286.43 47.6L285.543 419.044L119.973 674L-452 302.556Z" id="Rectangle-Copy" fill="#FC6748" fill-rule="evenodd" stroke="none" />
+    <path d="M-144 623C-144 477.749 -26.2509 360 119 360C264.251 360 382 477.749 382 623C382 768.251 264.251 886 119 886C-26.2509 886 -144 768.251 -144 623Z" id="Ellipse" fill="#251BCD" fill-rule="evenodd" stroke="none" />
+    <path d="M1318.86 143.371L1582.14 295.371L1241.14 886L977.864 734L1318.86 143.371Z" id="Rectangle" fill="#251BCD" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>
