@@ -7,6 +7,8 @@
   --text__04: #544ccc;
   --text__05: #ffffff;
   --text__06: rgba(68, 68, 68, 0.5); /* #444444 con opacidad */
+  --text__07: #e43f39;
+  --text__08: #39e483;
 
   --bg__01: #444444;
   --bg__02: #251bcd;
@@ -16,12 +18,13 @@
   --bg__06: #e25c42;
   --bg__07: rgba(250, 101, 71, 0.8);
   --bg__08: #ffffff;
+  --bg__09: #f5f5f5;
 
   --border__01: #444444;
   --border__02: #251bcd;
   --border__03: #fa6647;
 
-  --shadow__01: rgba(100, 100, 100, 0.8);
+  --shadow__01: rgba(100, 100, 100, 0.5);
 }
 
 body {
@@ -29,6 +32,7 @@ body {
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--bg__09);
 }
 
 code {
