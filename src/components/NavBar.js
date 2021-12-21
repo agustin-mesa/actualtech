@@ -6,6 +6,8 @@ import logo from "../assets/logos/logo.png";
 //-----------------COMPONENTS-----------------
 import CartWidget from "./CartWidget";
 import PhotoPerfil from "./PhotoPerfil";
+//-----------------STYLES COMPONENTS-----------------
+import { BtnPrimary } from "./styles/StyledComponentsDefault";
 
 const NavBar = ({ sesionIniciada }) => {
   return (
@@ -34,7 +36,7 @@ const NavBar = ({ sesionIniciada }) => {
               <PhotoPerfil />
             </>
           ) : (
-            <button>Iniciar sesión</button>
+            <BtnPrimary>Iniciar sesión</BtnPrimary>
           )}
         </div>
       </ContainerNavBar>
@@ -81,22 +83,6 @@ const ContainerNavBar = styled.nav`
     align-items: center;
     justify-content: flex-end;
     flex-direction: row;
-  }
-  .navbar__menu button {
-    color: var(--text__05);
-    font-size: 1em;
-    font-weight: 700;
-    text-align: center;
-    border-radius: 50px;
-    background: var(--bg__05);
-    transition: all 0.2s ease;
-    border: none;
-    outline: none;
-    padding: 10px 20px;
-  }
-  .navbar__menu button:hover {
-    background: var(--bg__06);
-    box-shadow: 0px 2px 6px var(--shadow__01);
   }
 `;
 
