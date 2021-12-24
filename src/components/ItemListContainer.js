@@ -8,7 +8,6 @@ import ItemList from "./ItemList";
 const ItemListContainer = () => {
   return (
     <ContainerItemList>
-      <ItemCount stockProducto={5} />
       <ItemList />
     </ContainerItemList>
   );

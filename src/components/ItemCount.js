@@ -41,7 +41,6 @@ const ItemCount = ({ stockProducto }) => {
     <>
       <ContainerItemCount>
         <div className="item-count__header">
-          <p>Cantidad que comprará</p>
           <span>
             Stock disponible: <b>{stockProducto}</b>
           </span>
@@ -74,6 +73,9 @@ const ItemCount = ({ stockProducto }) => {
           <button onClick={onAdd} disabled={stockProducto === 0 && true}>
             AGREGAR AL CARRITO
           </button>
+          <button onClick={onAdd} disabled={stockProducto === 0 && true}>
+            COMPRAR
+          </button>
         </div>
       </ContainerItemCount>
       <Toaster />
@@ -86,12 +88,7 @@ const ContainerItemCount = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 10px 10px 15px;
-  border-radius: 8px;
-  border: solid 1px var(--border__03);
-  background: var(--bg__08);
-  box-shadow: 0px 2px 8px var(--shadow__01);
-  width: 230px;
+  width: 100%;
   user-select: none;
 
   div {
@@ -100,22 +97,14 @@ const ContainerItemCount = styled.div`
 
   .item-count__header {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
-  }
-  .item-count__header p {
-    color: var(--text__01);
-    font-size: 0.9em;
-    font-weight: 600;
-    text-align: center;
-    margin: 0 0 5px;
   }
   .item-count__header span {
     color: var(--text__06);
     font-size: 0.8em;
     font-weight: 500;
-    width: 100%;
     text-align: center;
     b {
       color: var(--text__03);
@@ -126,7 +115,6 @@ const ContainerItemCount = styled.div`
   .item-count__contador {
     display: flex;
     align-items: center;
-    justify-content: center;
     margin: 10px 0 5px;
   }
   .item-count__contador button {
@@ -143,9 +131,9 @@ const ContainerItemCount = styled.div`
 
   .item-count__contador input {
     border-radius: 50px;
-    background: var(--bg__09);
+    background: var(--bg__08);
     text-align: center;
-    width: 50%;
+    width: 100px;
     padding: 10px;
     margin: 10px;
     border: none;
@@ -163,8 +151,11 @@ const ContainerItemCount = styled.div`
     -moz-appearance: textfield;
   }
 
+  .item-count__button {
+    display: flex;
+    flex-direction: row;
+  }
   .item-count__button button {
-    width: 100%;
     padding: 10px 20px;
     border-radius: 50px;
     border: 1px solid var(--border__03);
@@ -174,9 +165,16 @@ const ContainerItemCount = styled.div`
     font-weight: 700;
     transition: all 0.1s ease;
   }
-  .item-count__button button:hover {
+
+  .item-count__button button:first-child {
     background: var(--bg__05);
     color: var(--text__05);
+    width: 60%;
+    min-width: 225px;
+    margin: 0 5px 0 0;
+  }
+  .item-count__button button:hover {
+    opacity: 0.8;
   }
   .item-count__button button:disabled {
     opacity: 0.5;

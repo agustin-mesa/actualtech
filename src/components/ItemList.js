@@ -5,9 +5,9 @@ import styled from "styled-components";
 import Item from "./Item";
 import Loader from "react-loader-spinner";
 //-----------------IMAGES-----------------
-import macbook00 from "../assets/images/macbook__00.png";
-import macbook01 from "../assets/images/macbook__01.png";
-import macbook02 from "../assets/images/macbook__02.png";
+import macbook00 from "../assets/images/macbook__00.jpg";
+import macbook01 from "../assets/images/macbook__01.jpg";
+import macbook02 from "../assets/images/macbook__02.jpg";
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
@@ -15,7 +15,7 @@ const ItemList = () => {
 
   const loadItems = async () => {
     const response = await new Promise((resolve, reject) => {
-      setTimeout(function () {
+      setTimeout(() => {
         resolve([
           {
             id: 1,

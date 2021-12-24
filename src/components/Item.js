@@ -2,17 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
+import Precios from "./Precios";
 import { BtnPrimary } from "./styles/StyledComponentsDefault";
 
-//-----------------FUNCTIONS-----------------
-import { formatoPeso } from "../functions/formatoPeso";
-
 const Item = ({ item }) => {
-  const formatoDescuento = () => {
-    let formulaDescuento = item.price - (item.descuento * item.price) / 100;
-    return formatoPeso(formulaDescuento);
-  };
-
   return (
     <ContainerItem>
       <div className="btn-add-cart">
@@ -35,19 +28,7 @@ const Item = ({ item }) => {
           )}
 
           <h3>{item.title}</h3>
-          <div className="precio">
-            {item.descuento && (
-              <>
-                <span className="oferta">{item.descuento}% OFF</span>
-                <span className="precioOriginal">
-                  {formatoPeso(item.price)}
-                </span>
-              </>
-            )}
-            <span className="precioFinal">
-              {item.descuento ? formatoDescuento() : formatoPeso(item.price)}
-            </span>
-          </div>
+          <Precios precio={item.price} descuento={item.descuento} />
           <div className="btn-buy">
             <BtnPrimary>VER DETALLES</BtnPrimary>
             <span>
