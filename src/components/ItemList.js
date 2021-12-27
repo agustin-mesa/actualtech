@@ -9,7 +9,7 @@ import productos from "../data/productos.js";
 //-----------------REACT ROUTER-----------------
 import { Link } from "react-router-dom";
 
-const ItemList = () => {
+const ItemList = ({ soloCategoria }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,13 +35,23 @@ const ItemList = () => {
 
   return (
     <ContainerItemList>
-      {items.map((item) => {
-        return (
-          <Link key={item.id} to={`/shop/item/${item.id}`}>
-            <Item item={item} />
-          </Link>
-        );
-      })}
+      {soloCategoria
+        ? items.map((item) => {
+            return (
+              item.categoria === soloCategoria && (
+                <Link key={item.id} to={`/item/${item.id}`}>
+                  <Item item={item} />
+                </Link>
+              )
+            );
+          })
+        : items.map((item) => {
+            return (
+              <Link key={item.id} to={`/item/${item.id}`}>
+                <Item item={item} />
+              </Link>
+            );
+          })}
       {isLoading && (
         <Loader type="TailSpin" color="#fa6647" height={40} width={40} />
       )}
@@ -52,10 +62,11 @@ const ItemList = () => {
 const ContainerItemList = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 45px 30px;
   background: var(--bg__08);
   padding: 50px 40px;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
+  margin: 0;
   a {
     text-decoration: none;
   }

@@ -6,9 +6,13 @@ import Precios from "./Precios";
 import { BtnPrimary } from "./styles/StyledComponentsDefault";
 
 const Item = ({ item }) => {
+  const handleAddItem = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <ContainerItem>
-      <div className="btn-add-cart">
+      <div className="btn-add-cart" onClick={(e) => handleAddItem(e)}>
         <span className="material-icons">add_shopping_cart</span>
       </div>
       {item.envioGratis && (

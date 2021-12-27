@@ -3,11 +3,16 @@ import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
 import ItemList from "./ItemList";
+import NavBarCategoria from "./NavBarCategoria";
+//-----------------REACT ROUTER-----------------
+import { useParams } from "react-router-dom";
 
 const ItemListContainer = () => {
+  const { categoryId } = useParams();
   return (
     <ContainerItemList>
-      <ItemList />
+      <NavBarCategoria />
+      {categoryId ? <ItemList soloCategoria={categoryId} /> : <ItemList />}
     </ContainerItemList>
   );
 };

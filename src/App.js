@@ -15,8 +15,12 @@ const App = () => {
       <NavBar sesionIniciada={true} />
 
       <Routes>
-        <Route path="/shop/" element={<ItemListContainer />} />
-        <Route path="/shop/item/:id" element={<ItemDetailContainer />} />
+        <Route path="/shop/" exact="true" element={<ItemListContainer />} />
+        <Route
+          path="/shop/category/:categoryId"
+          element={<ItemListContainer />}
+        />
+        <Route path="/item/:id" element={<ItemDetailContainer />} />
       </Routes>
     </BrowserRouter>
   );
