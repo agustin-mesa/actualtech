@@ -48,7 +48,6 @@ const DetailItem = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
-  padding: 80px 10% 0;
   .item__img {
     position: relative;
     display: flex;

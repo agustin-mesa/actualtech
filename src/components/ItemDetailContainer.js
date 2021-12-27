@@ -4,60 +4,58 @@ import styled from "styled-components";
 //-----------------COMPONENTS-----------------
 import ItemDetail from "./ItemDetail";
 import Loader from "react-loader-spinner";
-//-----------------IMAGES-----------------
-import macbook02 from "../assets/images/macbook__02.jpg";
+//-----------------REACT ROUTER-----------------
+import { useParams, Navigate } from "react-router-dom";
+import productos from "../data/productos";
 
 const ItemDetailContainer = () => {
-  const [item, setItem] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
+
+  const [item, setItem] = useState(productos[id - 1]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadItems = async () => {
     const response = await new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve([
-          {
-            id: 1,
-            title: "MacBook Air 13''",
-            price: 332999,
-            pictureUrl: macbook02,
-            envioGratis: true,
-            cuotas: "",
-            sinInteres: false,
-            descuento: "",
-            stock: 8,
-            opiniones: 107,
-            promedioOpiniones: 80,
-          },
-        ]);
+        resolve(productos[id - 1]);
       }, 2 * 1000);
     });
 
     return response;
   };
-
   useEffect(() => {
     const getItems = async () => {
-      setIsLoading(true);
       const result = await loadItems();
       setIsLoading(false);
       setItem(result);
     };
     getItems();
-  }, []);
+  }, [loadItems]);
 
   return (
     <ContainerItemDetail>
       {isLoading ? (
-        <Loader type="TailSpin" color="#fa6647" height={40} width={40} />
+        <Loader
+          className="loader"
+          type="TailSpin"
+          color="#fa6647"
+          height={40}
+          width={40}
+        />
+      ) : productos[id - 1] ? (
+        <ItemDetail item={item} />
       ) : (
-        item.map((it) => {
-          return <ItemDetail item={it} />;
-        })
+        <Navigate to="/" />
       )}
     </ContainerItemDetail>
   );
 };
 
-const ContainerItemDetail = styled.div``;
+const ContainerItemDetail = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 10% 0;
+`;
 
 export default ItemDetailContainer;

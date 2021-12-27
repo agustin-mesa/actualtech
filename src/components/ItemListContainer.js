@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
-import ItemCount from "./ItemCount";
 import ItemList from "./ItemList";
 
 const ItemListContainer = () => {

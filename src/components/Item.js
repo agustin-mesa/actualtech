@@ -114,7 +114,7 @@ const ContainerItem = styled.li`
   }
   .item__body-img img {
     width: 100%;
-    max-width: 230px;
+    max-width: 150px;
   }
   .item__body-detalles {
     position: relative;

@@ -24,6 +24,8 @@ const ItemCount = ({ stockProducto }) => {
           return toast.error("No puedes superar el stock disponible");
         }
         break;
+      default:
+        break;
     }
   };
 
@@ -35,7 +37,7 @@ const ItemCount = ({ stockProducto }) => {
     if (stockProducto === 0) {
       setContadorProducto(0);
     }
-  }, []);
+  }, [stockProducto]);
 
   return (
     <>

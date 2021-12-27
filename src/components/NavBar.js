@@ -8,25 +8,29 @@ import CartWidget from "./CartWidget";
 import PhotoPerfil from "./PhotoPerfil";
 //-----------------STYLES COMPONENTS-----------------
 import { BtnPrimary } from "./styles/StyledComponentsDefault";
+//-----------------REACT ROUTER-----------------
+import { NavLink } from "react-router-dom";
 
 const NavBar = ({ sesionIniciada }) => {
   return (
     <header>
       <ContainerNavBar>
         <div className="navbar__logo">
-          <a href="#">
+          <NavLink to="/" exact="true">
             <img src={logo} alt="ActualTech" />
-          </a>
+          </NavLink>
         </div>
         <ul className="navbar__menu-list">
           <li>
-            <a href="#">Inicio</a>
+            <NavLink to="/" exact="true">
+              Inicio
+            </NavLink>
           </li>
           <li>
-            <a href="#">Tienda</a>
+            <NavLink to="/shop/">Tienda</NavLink>
           </li>
           <li>
-            <a href="#">Sobre nosotros</a>
+            <NavLink to="/sobre-nosotros">Sobre nosotros</NavLink>
           </li>
         </ul>
         <div className="navbar__menu">
@@ -54,6 +58,8 @@ const ContainerNavBar = styled.nav`
   justify-content: space-between;
   flex-direction: row;
   padding: 5px 10%;
+  z-index: 9999;
+  background: var(--bg__09);
 
   .navbar__logo img {
     width: 130px;
@@ -75,6 +81,9 @@ const ContainerNavBar = styled.nav`
     text-decoration: none;
   }
   .navbar__menu-list li a:hover {
+    color: var(--text__02);
+  }
+  .navbar__menu-list li a.active {
     color: var(--text__02);
   }
 

@@ -4,10 +4,10 @@ import styled from "styled-components";
 //-----------------COMPONENTS-----------------
 import Item from "./Item";
 import Loader from "react-loader-spinner";
-//-----------------IMAGES-----------------
-import macbook00 from "../assets/images/macbook__00.jpg";
-import macbook01 from "../assets/images/macbook__01.jpg";
-import macbook02 from "../assets/images/macbook__02.jpg";
+//-----------------DATA-----------------
+import productos from "../data/productos.js";
+//-----------------REACT ROUTER-----------------
+import { Link } from "react-router-dom";
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
@@ -16,41 +16,7 @@ const ItemList = () => {
   const loadItems = async () => {
     const response = await new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve([
-          {
-            id: 1,
-            title: "MacBook Air 13''",
-            price: 199999,
-            pictureUrl: macbook00,
-            envioGratis: true,
-            cuotas: "3 y 6 CUOTAS",
-            sinInteres: true,
-            descuento: 25,
-            stock: 7,
-          },
-          {
-            id: 2,
-            title: "MacBook Air 13''",
-            price: 278999,
-            pictureUrl: macbook01,
-            envioGratis: false,
-            cuotas: "6 CUOTAS",
-            sinInteres: true,
-            descuento: 17,
-            stock: 10,
-          },
-          {
-            id: 3,
-            title: "MacBook Air 13''",
-            price: 332999,
-            pictureUrl: macbook02,
-            envioGratis: false,
-            cuotas: "",
-            sinInteres: false,
-            descuento: "",
-            stock: 8,
-          },
-        ]);
+        resolve(productos);
       }, 2 * 1000);
     });
 
@@ -70,7 +36,11 @@ const ItemList = () => {
   return (
     <ContainerItemList>
       {items.map((item) => {
-        return <Item key={item.id} item={item} />;
+        return (
+          <Link key={item.id} to={`/shop/item/${item.id}`}>
+            <Item item={item} />
+          </Link>
+        );
       })}
       {isLoading && (
         <Loader type="TailSpin" color="#fa6647" height={40} width={40} />
@@ -86,6 +56,9 @@ const ContainerItemList = styled.ul`
   background: var(--bg__08);
   padding: 50px 40px;
   border-radius: 10px;
+  a {
+    text-decoration: none;
+  }
 `;
 
 export default ItemList;
