@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
-const ItemCount = ({ stockProducto }) => {
-  const [contadorProducto, setContadorProducto] = useState(1);
-
+const ItemCount = ({
+  stockProducto,
+  onAdd,
+  contadorProducto,
+  setContadorProducto,
+}) => {
   const handleChange = (e) => {
     let name = e.target.name;
     switch (name) {
@@ -27,10 +31,6 @@ const ItemCount = ({ stockProducto }) => {
       default:
         break;
     }
-  };
-
-  const onAdd = () => {
-    toast.success(`Cantidad seleccionada: ${contadorProducto}`);
   };
 
   useEffect(() => {
@@ -72,12 +72,19 @@ const ItemCount = ({ stockProducto }) => {
           </button>
         </div>
         <div className="item-count__button">
-          <button onClick={onAdd} disabled={stockProducto === 0 && true}>
+          <button
+            onClick={() => onAdd(contadorProducto)}
+            disabled={stockProducto === 0 && true}
+          >
             AGREGAR AL CARRITO
           </button>
-          <button onClick={onAdd} disabled={stockProducto === 0 && true}>
+          <Link
+            className="btn-comprar"
+            to="/cart"
+            disabled={stockProducto === 0 && true}
+          >
             COMPRAR
-          </button>
+          </Link>
         </div>
       </ContainerItemCount>
       <Toaster />
@@ -157,7 +164,8 @@ const ContainerItemCount = styled.div`
     display: flex;
     flex-direction: row;
   }
-  .item-count__button button {
+  .item-count__button button,
+  .item-count__button .btn-comprar {
     padding: 10px 20px;
     border-radius: 50px;
     border: 1px solid var(--border__03);
@@ -166,6 +174,7 @@ const ContainerItemCount = styled.div`
     font-size: 1em;
     font-weight: 700;
     transition: all 0.1s ease;
+    text-decoration: none;
   }
 
   .item-count__button button:first-child {
@@ -175,13 +184,16 @@ const ContainerItemCount = styled.div`
     min-width: 225px;
     margin: 0 5px 0 0;
   }
-  .item-count__button button:hover {
+  .item-count__button button:hover,
+  .item-count__button .btn-comprar:hover {
     opacity: 0.8;
   }
-  .item-count__button button:disabled {
+  .item-count__button button:disabled,
+  .item-count__button .btn-comprar:disabled {
     opacity: 0.5;
   }
-  .item-count__button button:disabled:hover {
+  .item-count__button button:disabled:hover,
+  .item-count__button .btn-comprar:hover {
     color: var(--text__03);
     background: transparent;
   }

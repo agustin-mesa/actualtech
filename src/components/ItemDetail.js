@@ -1,46 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
 import Precios from "./Precios";
 import ItemCount from "./ItemCount";
+import toast from "react-hot-toast";
 
 const ItemDetail = ({ item }) => {
+  const [contadorProducto, setContadorProducto] = useState(1);
+
+  const onAdd = (cantidad) => {
+    setContadorProducto(cantidad);
+    console.log(contadorProducto);
+    toast.success("Producto agregado.");
+  };
+
   return (
-    <DetailItem>
-      <div className="item__img">
-        <img src={item.pictureUrl} alt={item.title} />
-      </div>
-      <div className="item__detalles">
-        <div className="detalles-opiniones">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_outline</span>
-          <p>{item.opiniones} opiniones</p>
+    <>
+      <DetailItem>
+        <div className="item__img">
+          <img src={item.pictureUrl} alt={item.title} />
         </div>
-        <div className="detalles-body">
-          <div className="body__header">
-            <h3>{item.title}</h3>
-            <Precios
-              precio={item.price}
-              descuento={item.descuento}
-              estilo="align-left"
-            />
-            {item.cuotas && (
-              <p className="cuotas">
-                {item.cuotas} {item.sinInteres && <b>SIN INTERÉS</b>}
-              </p>
-            )}
-            {item.envioGratis && <p className="envio">Envío gratis</p>}
+        <div className="item__detalles">
+          <div className="detalles-opiniones">
+            <span className="material-icons">star</span>
+            <span className="material-icons">star</span>
+            <span className="material-icons">star</span>
+            <span className="material-icons">star</span>
+            <span className="material-icons">star_outline</span>
+            <p>{item.opiniones} opiniones</p>
           </div>
-          <div className="body__bottom">
-            <ItemCount stockProducto={item.stock} />
+          <div className="detalles-body">
+            <div className="body__header">
+              <h3>{item.title}</h3>
+              <Precios
+                precio={item.price}
+                descuento={item.descuento}
+                estilo="align-left"
+              />
+              {item.cuotas && (
+                <p className="cuotas">
+                  {item.cuotas} {item.sinInteres && <b>SIN INTERÉS</b>}
+                </p>
+              )}
+              {item.envioGratis && <p className="envio">Envío gratis</p>}
+            </div>
+            <div className="body__bottom">
+              <ItemCount
+                stockProducto={item.stock}
+                onAdd={onAdd}
+                contadorProducto={contadorProducto}
+                setContadorProducto={setContadorProducto}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </DetailItem>
+      </DetailItem>
+    </>
   );
 };
 
