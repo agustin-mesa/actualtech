@@ -20,6 +20,7 @@
   --bg__08: #ffffff;
   --bg__09: #f5f5f5;
   --bg__10: #544ccc;
+  --bg__11: #ccc;
 
   --border__01: #444444;
   --border__02: #251bcd;
@@ -27,6 +28,26 @@
 
   --shadow__01: rgba(100, 100, 100, 0.5);
   --shadow__02: rgba(250, 102, 71, 0.5);
+}
+
+*::-webkit-scrollbar {
+  width: 6px; /* Tamaño del scroll en vertical */
+  height: 6px; /* Tamaño del scroll en horizontal */
+}
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+*::-webkit-scrollbar-thumb {
+  background: var(--bg__11);
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--bg__07);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+*::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
 }
 
 body {

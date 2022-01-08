@@ -4,10 +4,15 @@ import styled from "styled-components";
 //-----------------COMPONENTS-----------------
 import Precios from "./Precios";
 import { BtnPrimary } from "./styles/StyledComponentsDefault";
+//---------------- CONTEXT ----------------
+import { useCart } from "../context/CartContext";
 
 const Item = ({ item }) => {
+  const { addItem } = useCart();
+
   const handleAddItem = (e) => {
     e.preventDefault();
+    return addItem(item, 1);
   };
 
   return (

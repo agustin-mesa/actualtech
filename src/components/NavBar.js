@@ -36,7 +36,7 @@ const NavBar = ({ sesionIniciada }) => {
         <div className="navbar__menu">
           {sesionIniciada ? (
             <>
-              <CartWidget cantidad="7" />
+              <CartWidget />
               <PhotoPerfil />
             </>
           ) : (

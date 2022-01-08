@@ -9,22 +9,26 @@ import ItemDetailContainer from "./components/ItemDetailContainer";
 import CartContainer from "./components/CartContainer";
 //-----------------REACT ROUTER-----------------
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+//-----------------CONTEXT-----------------
+import { CartContextProvider } from "./context/CartContext";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <NavBar sesionIniciada={true} />
+    <CartContextProvider>
+      <BrowserRouter>
+        <NavBar sesionIniciada={true} />
 
-      <Routes>
-        <Route path="/shop/" exact="true" element={<ItemListContainer />} />
-        <Route
-          path="/shop/category/:categoryId"
-          element={<ItemListContainer />}
-        />
-        <Route path="/item/:id" element={<ItemDetailContainer />} />
-        <Route path="/cart" element={<CartContainer />} />
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/shop/" exact="true" element={<ItemListContainer />} />
+          <Route
+            path="/shop/category/:categoryId"
+            element={<ItemListContainer />}
+          />
+          <Route path="/item/:id" element={<ItemDetailContainer />} />
+          <Route path="/cart" element={<CartContainer />} />
+        </Routes>
+      </BrowserRouter>
+    </CartContextProvider>
   );
 };
 export default App;

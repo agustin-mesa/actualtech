@@ -7,14 +7,17 @@ import { formatoPeso } from "../functions/formatoPeso";
 const Precios = ({ precio, descuento, estilo }) => {
   const formatoDescuento = () => {
     let formulaDescuento = precio - (descuento * precio) / 100;
-    return formatoPeso(formulaDescuento);
+    return formatoPeso(Math.round(formulaDescuento));
   };
 
   return (
     <ContainerPrecios className={estilo}>
       {descuento && (
         <>
-          <span className="oferta">{descuento}% OFF</span>
+          {estilo !== "row-reverse" && (
+            <span className="oferta">{descuento}% OFF</span>
+          )}
+
           <span className="precioOriginal">{formatoPeso(precio)}</span>
         </>
       )}
@@ -37,6 +40,13 @@ const ContainerPrecios = styled.div`
     align-items: flex-start;
     span {
       margin: 2px 0;
+    }
+  }
+  &.row-reverse {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    span.precioFinal {
+      margin: 0 5px 0 0;
     }
   }
 

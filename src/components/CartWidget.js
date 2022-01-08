@@ -2,7 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
-const CartWidget = ({ cantidad }) => {
+//---------------- COMPONENTS ----------------
+import Precios from "./Precios";
+//---------------- CONTEXT ----------------
+import { useCart } from "../context/CartContext";
+//-----------------FUNCTIONS-----------------
+import { formatoPeso } from "../functions/formatoPeso";
+
+const CartWidget = () => {
+  const { cart, removeItem, clear } = useCart();
+
   const [showCartList, setShowCartList] = useState(false);
   return (
     <ContainerCartWidget>
@@ -11,14 +20,45 @@ const CartWidget = ({ cantidad }) => {
         onClick={() => setShowCartList(!showCartList)}
       >
         <span className="material-icons">shopping_cart</span>
-        <div>{cantidad}</div>
+        <div>{cart.addedItems.length}</div>
       </div>
       {showCartList && (
         <div className="cart__list">
+          <p className="limpiar" onClick={clear}>
+            Limpiar
+          </p>
           <ul>
-            <li>ITEMS...</li>
+            {cart.addedItems.length !== 0 ? (
+              cart.addedItems.map((producto) => {
+                return (
+                  <li key={producto.id}>
+                    <Link to={`/item/${producto.id}`}>
+                      <img src={producto.pictureUrl} alt={producto.title} />
+                      <div>
+                        <p>{producto.title}</p>
+                        <Precios
+                          precio={producto.price}
+                          descuento={producto.descuento}
+                          estilo="row-reverse"
+                        />
+                      </div>
+                      <span className="cantidad">{producto.cantidad}</span>
+                    </Link>
+                    <span
+                      className="material-icons close"
+                      onClick={() => removeItem(producto.id)}
+                    >
+                      close
+                    </span>
+                  </li>
+                );
+              })
+            ) : (
+              <p>No hay productos en tu carrito</p>
+            )}
           </ul>
           <div className="cart__list-btn">
+            <span>TOTAL: {formatoPeso(Math.round(cart.totalPrice))}</span>
             <Link to="/cart">TERMINAR MI COMPRA</Link>
           </div>
         </div>
@@ -90,12 +130,96 @@ const ContainerCartWidget = styled.div`
     padding: 10px;
     animation: ${showList} 0.5s ease forwards;
   }
+
+  .cart__list p.limpiar {
+    margin: 0 0 5px;
+    text-align: right;
+    color: var(--text__03);
+    font-size: 0.8em;
+    font-weight: 700;
+    cursor: pointer;
+  }
   .cart__list ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     list-style: none;
+    flex-direction: column;
     padding: 0;
+    margin: 0 0 5px;
+    min-height: 50px;
+    max-height: 250px;
+    overflow-y: auto;
+  }
+  .cart__list ul p {
+    font-size: 1em;
+    color: var(--text__01);
+  }
+  .cart__list ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+  .cart__list ul li:hover {
+    border-left: 2px solid var(--border__03);
+  }
+  .cart__list ul li a {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-decoration: none;
+    color: var(--text__01);
+    padding: 5px 0;
+    cursor: pointer;
+  }
+  .cart__list ul li span.close {
+    font-size: 1em;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  .cart__list ul li a div {
+    flex: 1;
+    font-size: 0.9em;
+  }
+  .cart__list ul li a div p {
+    margin: 0 0 5px;
+  }
+  .cart__list ul li a div span {
+    font-weight: 700;
+  }
+  .cart__list ul li a span.cantidad {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--bg__09);
+    color: var(--text__03);
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: 700;
+  }
+
+  .cart__list ul li a img {
+    width: 50px;
+    height: 50px;
+    margin: 0 5px 0 0;
   }
   .cart__list-btn {
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px 0 0;
+    border-top: 2px solid var(--border__03);
+  }
+
+  .cart__list-btn span {
+    font-size: 1em;
+    color: var(--text__01);
   }
   .cart__list-btn a {
     width: 100%;
@@ -103,7 +227,7 @@ const ContainerCartWidget = styled.div`
     border: none;
     background: transparent;
     color: var(--text__03);
-    font-size: 0.8em;
+    font-size: 1em;
     font-weight: 700;
     transition: all 0.1s ease;
   }

@@ -1,7 +1,7 @@
 export const formatoPeso = (precioFinal) => {
-  return precioFinal.toLocaleString("en-US", {
+  return precioFinal.toLocaleString("de-DE", {
     style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
+    currency: "ARS",
+    minimumFractionDigits: 0,
   });
 };

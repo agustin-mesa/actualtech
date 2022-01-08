@@ -5,13 +5,16 @@ import styled from "styled-components";
 import Precios from "./Precios";
 import ItemCount from "./ItemCount";
 import toast from "react-hot-toast";
+//------------CONTEXT------------
+import { useCart } from "../context/CartContext";
 
 const ItemDetail = ({ item }) => {
+  const { addItem } = useCart();
   const [contadorProducto, setContadorProducto] = useState(1);
 
   const onAdd = (cantidad) => {
     setContadorProducto(cantidad);
-    console.log(contadorProducto);
+    addItem(item, cantidad);
     toast.success("Producto agregado.");
   };
 
