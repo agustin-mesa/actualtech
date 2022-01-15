@@ -58,8 +58,10 @@ const ContainerNavBar = styled.nav`
   justify-content: space-between;
   flex-direction: row;
   padding: 5px 10%;
+  max-width: 1100px;
   z-index: 9999;
   background: var(--bg__09);
+  margin: auto;
 
   .navbar__logo img {
     width: 130px;

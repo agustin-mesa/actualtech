@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
@@ -160,9 +160,10 @@ const ContainerCartWidget = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    transition: all 0.2s ease;
   }
   .cart__list ul li:hover {
-    border-left: 2px solid var(--border__03);
+    border-left: 4px solid var(--border__03);
   }
   .cart__list ul li a {
     display: flex;

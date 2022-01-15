@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 
 // Contexto/estado global
 const CartContext = createContext();
@@ -13,47 +13,67 @@ const INITIAL_STATE = {
 
 const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState(INITIAL_STATE);
+  const [itemsCantidadAlcanzada, setItemsCantidadAlcanzada] = useState([]);
 
   // ---------> AÑADIR ITEM <---------
   const addItem = (item, cantidad) => {
-    let itemToAdd = Object.assign(item, { cantidad: cantidad });
+    item = { ...item, cantidad: cantidad, limiteAlcanzado: false };
+    item.limiteAlcanzado = verifyItemLimiteAlcanzado(
+      item,
+      cantidad,
+      cart.addedItems
+    );
 
     // Si existe el item en el carrito, actualizar su cantidad.
-    if (isInCart(itemToAdd.id)) {
+    if (isInCart(item.id)) {
       const updateItemsAdded = cart.addedItems.map((producto) => {
-        if (producto.id === itemToAdd.id)
-          return {
+        if (producto.id === item.id) {
+          return (item = {
             ...producto,
             cantidad:
-              producto.cantidad < producto.stock
+              producto.cantidad + cantidad < producto.stock
                 ? producto.cantidad + cantidad
                 : producto.stock,
-          };
+          });
+        }
         return producto;
       });
+
+      item.limiteAlcanzado = verifyItemLimiteAlcanzado(
+        item,
+        cantidad,
+        updateItemsAdded
+      );
+
+      verifyUpdateItemsAlcanzados(updateItemsAdded);
+
+      if (item.limiteAlcanzado) {
+        setCart({
+          addedItems: updateItemsAdded,
+          totalPrice: cart.totalPrice + calculoItemPorCantidad(item, cantidad),
+        });
+      }
       return setCart({
         addedItems: updateItemsAdded,
-        totalPrice: calculoTotalPrice(itemToAdd, cantidad),
+        totalPrice: cart.totalPrice + calculoItemPorCantidad(item, cantidad),
       });
     }
-
     setCart({
-      addedItems: [...cart.addedItems, itemToAdd],
-      totalPrice: calculoTotalPrice(itemToAdd, cantidad),
+      addedItems: [...cart.addedItems, item],
+      totalPrice: cart.totalPrice + calculoItemPorCantidad(item, cantidad),
     });
   };
-
   // PRE: item -> item con sus valores
   //      cantidad -> la cantidad del objeto que se AGREGARÁ
   //                  (no es del mismo item.cantidad)
   // POST: retorna el precio total respecto a la cantidad e
   //       item que se agregará
-  const calculoTotalPrice = (item, cantidad) => {
+  const calculoItemPorCantidad = (item, cantidad) => {
     // Si el item NO tiene descuento, se toma el precio original.
-    if (item.descuento === "") return cart.totalPrice + item.price * cantidad;
+    if (item.descuento === "") return item.price * cantidad;
 
     let formatoDescuento = item.price - (item.descuento * item.price) / 100;
-    return cart.totalPrice + formatoDescuento * cantidad;
+    return formatoDescuento * cantidad;
   };
 
   // ---------> VERIFICA SI UN ITEM ESTÁ EN EL CART <---------
@@ -61,6 +81,38 @@ const CartContextProvider = ({ children }) => {
     return cart.addedItems.some((addedItem) => addedItem.id === id)
       ? true
       : false;
+  };
+
+  const verifyItemLimiteAlcanzado = (item, cantidad, addedItems) => {
+    return addedItems.some((producto) => {
+      if (
+        (producto.id === item.id && producto.cantidad === producto.stock) ||
+        (producto.id === item.id &&
+          producto.cantidad + cantidad > producto.stock)
+      ) {
+        return true;
+      }
+      return false;
+    });
+  };
+
+  const verifyUpdateItemsAlcanzados = (updateItemsAdded) => {
+    const itemsAlcanzados = updateItemsAdded.map((producto) => {
+      if (producto.limiteAlcanzado)
+        return {
+          id: producto.id,
+          name: producto.title,
+          limiteAlcanzado: producto.limiteAlcanzado,
+        };
+    });
+    setItemsCantidadAlcanzada(itemsAlcanzados);
+  };
+
+  const verifyItemsAlcanzados = () => {
+    const itemsAlcanzados = itemsCantidadAlcanzada.map((producto) => {
+      return !producto.limiteAlcanzado;
+    });
+    setItemsCantidadAlcanzada(itemsAlcanzados);
   };
 
   // ---------> REMOVER ITEM <---------
@@ -74,6 +126,7 @@ const CartContextProvider = ({ children }) => {
       }
       return producto.id !== id;
     });
+    verifyUpdateItemsAlcanzados(updateItemsAdded);
     setCart({
       totalPrice: updateTotalPrice,
       addedItems: updateItemsAdded,
@@ -95,6 +148,7 @@ const CartContextProvider = ({ children }) => {
   // ---------> LIMPIO EL CART <---------
   const clear = () => {
     setCart(INITIAL_STATE);
+    verifyItemsAlcanzados();
   };
 
   return (
@@ -105,6 +159,7 @@ const CartContextProvider = ({ children }) => {
         addItem,
         removeItem,
         clear,
+        itemsCantidadAlcanzada,
       }}
     >
       {children}

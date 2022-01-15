@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
@@ -8,18 +8,35 @@ import { BtnPrimary } from "./styles/StyledComponentsDefault";
 import { useCart } from "../context/CartContext";
 
 const Item = ({ item }) => {
-  const { addItem } = useCart();
+  const { addItem, itemsCantidadAlcanzada } = useCart();
 
-  const handleAddItem = (e) => {
+  const [itemCantidadAlcanzada, setItemCantidadAlcanzada] = useState(false);
+
+  useEffect(() => {
+    if (!itemsCantidadAlcanzada.some((item) => item === undefined || false)) {
+      const limit = itemsCantidadAlcanzada.some(
+        (producto) => producto.id === item.id && true
+      );
+      setItemCantidadAlcanzada(limit);
+    }
+  }, [itemsCantidadAlcanzada, itemCantidadAlcanzada]);
+
+  const onAdd = (e) => {
     e.preventDefault();
     return addItem(item, 1);
   };
 
   return (
     <ContainerItem>
-      <div className="btn-add-cart" onClick={(e) => handleAddItem(e)}>
-        <span className="material-icons">add_shopping_cart</span>
-      </div>
+      <button
+        className="btn-add-cart"
+        disabled={item.stock === 0 || itemCantidadAlcanzada ? true : false}
+        onClick={(e) => onAdd(e)}
+      >
+        <span className="material-icons" onClick={(e) => e.preventDefault()}>
+          add_shopping_cart
+        </span>
+      </button>
       {item.envioGratis && (
         <div className="item__header">
           <span>ENVÍO GRATIS</span>
@@ -57,7 +74,7 @@ const ContainerItem = styled.li`
   flex-direction: column;
   border-radius: 8px;
   background: var(--bg__08);
-  box-shadow: 0px 2px 8px var(--shadow__01);
+  box-shadow: 0px 14px 40px -10px var(--shadow__01);
   max-width: 280px;
   min-width: 200px;
   height: 330px;
@@ -66,7 +83,7 @@ const ContainerItem = styled.li`
   user-select: none;
 
   &:hover {
-    box-shadow: 0px 2px 16px var(--shadow__02);
+    box-shadow: 0px 14px 40px -10px var(--shadow__02);
   }
 
   .btn-add-cart {
@@ -80,14 +97,15 @@ const ContainerItem = styled.li`
     height: 50px;
     background: var(--bg__05);
     border-radius: 50px;
-    z-index: 99;
-    box-shadow: 0px 2px 6px var(--shadow__01);
+    z-index: 999;
+    box-shadow: 0px 14px 20px -10px var(--shadow__01);
     cursor: pointer;
     transition: all 0.2s ease;
+    border: none;
   }
   .btn-add-cart:hover {
     background: var(--bg__06);
-    box-shadow: 0px 4px 8px var(--shadow__01);
+    box-shadow: 0px 14px 20px -10px var(--shadow__01);
   }
   .btn-add-cart span {
     color: var(--text__05);

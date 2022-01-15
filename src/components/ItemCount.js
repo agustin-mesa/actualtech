@@ -9,24 +9,20 @@ const ItemCount = ({
   onAdd,
   contadorProducto,
   setContadorProducto,
+  limit,
 }) => {
   const handleChange = (e) => {
     let name = e.target.name;
     switch (name) {
       case "btnDisminuir":
-        if (contadorProducto > 1) {
-          setContadorProducto(contadorProducto - 1);
-        }
+        if (contadorProducto > 1) setContadorProducto(contadorProducto - 1);
         break;
       case "btnAumentar":
         if (stockProducto === 0) {
           return toast.error("No hay más stock.");
         }
-        if (contadorProducto < stockProducto) {
+        if (contadorProducto < stockProducto)
           setContadorProducto(contadorProducto + 1);
-        } else {
-          return toast.error("No puedes superar el stock disponible");
-        }
         break;
       default:
         break;
@@ -52,6 +48,7 @@ const ItemCount = ({
             name="btnDisminuir"
             title="Disminuir la cantidad"
             onClick={(e) => handleChange(e)}
+            disabled={contadorProducto > 1 ? false : true}
           >
             -
           </button>
@@ -67,6 +64,7 @@ const ItemCount = ({
             name="btnAumentar"
             title="Aumentar la cantidad"
             onClick={(e) => handleChange(e)}
+            disabled={contadorProducto < stockProducto ? false : true}
           >
             +
           </button>
@@ -74,7 +72,7 @@ const ItemCount = ({
         <div className="item-count__button">
           <button
             onClick={() => onAdd(contadorProducto)}
-            disabled={stockProducto === 0 && true}
+            disabled={stockProducto === 0 || limit ? true : false}
           >
             AGREGAR AL CARRITO
           </button>
@@ -136,6 +134,9 @@ const ContainerItemCount = styled.div`
     border-radius: 50px;
     border: none;
     outline: none;
+  }
+  .item-count__contador button:disabled {
+    opacity: 0.5;
   }
 
   .item-count__contador input {

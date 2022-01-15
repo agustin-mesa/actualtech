@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
@@ -9,14 +9,23 @@ import toast from "react-hot-toast";
 import { useCart } from "../context/CartContext";
 
 const ItemDetail = ({ item }) => {
-  const { addItem } = useCart();
+  const { addItem, itemsCantidadAlcanzada } = useCart();
   const [contadorProducto, setContadorProducto] = useState(1);
+  const [itemCantidadAlcanzada, setItemCantidadAlcanzada] = useState(false);
 
   const onAdd = (cantidad) => {
     setContadorProducto(cantidad);
     addItem(item, cantidad);
     toast.success("Producto agregado.");
   };
+  useEffect(() => {
+    if (!itemsCantidadAlcanzada.some((item) => item === undefined || false)) {
+      const limit = itemsCantidadAlcanzada.some(
+        (producto) => producto.id === item.id && true
+      );
+      setItemCantidadAlcanzada(limit);
+    }
+  }, [itemsCantidadAlcanzada, itemCantidadAlcanzada]);
 
   return (
     <>
@@ -54,6 +63,7 @@ const ItemDetail = ({ item }) => {
                 onAdd={onAdd}
                 contadorProducto={contadorProducto}
                 setContadorProducto={setContadorProducto}
+                limit={itemCantidadAlcanzada}
               />
             </div>
           </div>
@@ -75,7 +85,7 @@ const DetailItem = styled.div`
     width: 100%;
     height: 70vh;
     background: var(--bg__08);
-    box-shadow: 0px 2px 16px var(--shadow__02);
+    box-shadow: 0px 14px 40px -10px var(--shadow__02);
     border-radius: 8px;
     overflow: hidden;
   }

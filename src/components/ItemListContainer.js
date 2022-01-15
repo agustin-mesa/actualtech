@@ -21,7 +21,8 @@ const ContainerItemList = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 80px 10% 0;
+  padding: 80px 60px 0;
+  max-width: 1000px;
 `;
 
 export default ItemListContainer;
