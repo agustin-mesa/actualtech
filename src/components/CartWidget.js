@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 //---------------- COMPONENTS ----------------
-import Precios from "./Precios";
+import CartWidgetItem from "./CartWidgetItem";
 //---------------- CONTEXT ----------------
 import { useCart } from "../context/CartContext";
 //-----------------FUNCTIONS-----------------
@@ -32,24 +32,10 @@ const CartWidget = () => {
               cart.addedItems.map((producto) => {
                 return (
                   <li key={producto.id}>
-                    <Link to={`/item/${producto.id}`}>
-                      <img src={producto.pictureUrl} alt={producto.title} />
-                      <div>
-                        <p>{producto.title}</p>
-                        <Precios
-                          precio={producto.price}
-                          descuento={producto.descuento}
-                          estilo="row-reverse"
-                        />
-                      </div>
-                      <span className="cantidad">{producto.cantidad}</span>
-                    </Link>
-                    <span
-                      className="material-icons close"
-                      onClick={() => removeItem(producto.id)}
-                    >
-                      close
-                    </span>
+                    <CartWidgetItem
+                      producto={producto}
+                      removeItem={removeItem}
+                    />
                   </li>
                 );
               })
@@ -126,7 +112,7 @@ const ContainerCartWidget = styled.div`
     justify-content: center;
     background: var(--bg__08);
     border-radius: 8px;
-    box-shadow: 0px 2px 16px var(--shadow__02);
+    box-shadow: 0px 14px 40px -10px var(--shadow__02);
     padding: 10px;
     animation: ${showList} 0.5s ease forwards;
   }
@@ -141,8 +127,7 @@ const ContainerCartWidget = styled.div`
   }
   .cart__list ul {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     list-style: none;
     flex-direction: column;
     padding: 0;
@@ -155,59 +140,7 @@ const ContainerCartWidget = styled.div`
     font-size: 1em;
     color: var(--text__01);
   }
-  .cart__list ul li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    transition: all 0.2s ease;
-  }
-  .cart__list ul li:hover {
-    border-left: 4px solid var(--border__03);
-  }
-  .cart__list ul li a {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    text-decoration: none;
-    color: var(--text__01);
-    padding: 5px 0;
-    cursor: pointer;
-  }
-  .cart__list ul li span.close {
-    font-size: 1em;
-    cursor: pointer;
-    margin: 0 5px;
-  }
-  .cart__list ul li a div {
-    flex: 1;
-    font-size: 0.9em;
-  }
-  .cart__list ul li a div p {
-    margin: 0 0 5px;
-  }
-  .cart__list ul li a div span {
-    font-weight: 700;
-  }
-  .cart__list ul li a span.cantidad {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    background: var(--bg__09);
-    color: var(--text__03);
-    border-radius: 50px;
-    font-size: 0.8em;
-    font-weight: 700;
-  }
 
-  .cart__list ul li a img {
-    width: 50px;
-    height: 50px;
-    margin: 0 5px 0 0;
-  }
   .cart__list-btn {
     text-align: center;
     display: flex;

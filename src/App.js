@@ -6,7 +6,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import NavBar from "./components/NavBar";
 import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
-import CartContainer from "./components/CartContainer";
+import Cart from "./components/Cart";
 //-----------------REACT ROUTER-----------------
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 //-----------------CONTEXT-----------------
@@ -25,7 +25,7 @@ const App = () => {
             element={<ItemListContainer />}
           />
           <Route path="/item/:id" element={<ItemDetailContainer />} />
-          <Route path="/cart" element={<CartContainer />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </CartContextProvider>

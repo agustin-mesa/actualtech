@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import CustomButton from "./CustomButton";
 
 const ItemCount = ({
   stockProducto,
@@ -70,19 +71,21 @@ const ItemCount = ({
           </button>
         </div>
         <div className="item-count__button">
-          <button
-            onClick={() => onAdd(contadorProducto)}
-            disabled={stockProducto === 0 || limit ? true : false}
-          >
-            AGREGAR AL CARRITO
-          </button>
-          <Link
-            className="btn-comprar"
-            to="/cart"
-            disabled={stockProducto === 0 && true}
-          >
-            COMPRAR
-          </Link>
+          {stockProducto === 0 || limit ? (
+            <CustomButton
+              text="TERMINAR MI COMPRA"
+              onClick={() => onAdd(contadorProducto)}
+              disabled={stockProducto === 0 && true}
+              isLink={true}
+              to="/cart"
+            />
+          ) : (
+            <CustomButton
+              text="AGREGAR AL CARRITO"
+              onClick={() => onAdd(contadorProducto)}
+              disabled={stockProducto === 0 || limit ? true : false}
+            />
+          )}
         </div>
       </ContainerItemCount>
       <Toaster />
@@ -164,39 +167,6 @@ const ContainerItemCount = styled.div`
   .item-count__button {
     display: flex;
     flex-direction: row;
-  }
-  .item-count__button button,
-  .item-count__button .btn-comprar {
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: 1px solid var(--border__03);
-    background: transparent;
-    color: var(--text__03);
-    font-size: 1em;
-    font-weight: 700;
-    transition: all 0.1s ease;
-    text-decoration: none;
-  }
-
-  .item-count__button button:first-child {
-    background: var(--bg__05);
-    color: var(--text__05);
-    width: 60%;
-    min-width: 225px;
-    margin: 0 5px 0 0;
-  }
-  .item-count__button button:hover,
-  .item-count__button .btn-comprar:hover {
-    opacity: 0.8;
-  }
-  .item-count__button button:disabled,
-  .item-count__button .btn-comprar:disabled {
-    opacity: 0.5;
-  }
-  .item-count__button button:disabled:hover,
-  .item-count__button .btn-comprar:hover {
-    color: var(--text__03);
-    background: transparent;
   }
 `;
 

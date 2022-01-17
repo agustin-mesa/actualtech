@@ -148,7 +148,7 @@ const CartContextProvider = ({ children }) => {
   // ---------> LIMPIO EL CART <---------
   const clear = () => {
     setCart(INITIAL_STATE);
-    verifyItemsAlcanzados();
+    setItemsCantidadAlcanzada([]);
   };
 
   return (

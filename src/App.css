@@ -29,8 +29,11 @@
   --shadow__01: rgba(100, 100, 100, 0.5);
   --shadow__02: rgba(250, 102, 71, 0.5);
 
+}
+
+#root{
   display: flex;
-    justify-content: center;
+  justify-content: center;
 }
 
 *::-webkit-scrollbar {
