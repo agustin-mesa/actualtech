@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 //---------------- CONTEXT ----------------
-import { useCart } from "../context/CartContext";
-import { formatoPeso } from "../functions/formatoPeso";
+import { useCart } from "../../context/CartContext";
+import { formatoPeso } from "../../functions/formatoPeso";
 //---------------- COMPONENT ----------------
 import CartWidgetItem from "./CartWidgetItem";
-import CustomButton from "./CustomButton";
+import CustomButton from "../CustomButton/CustomButton";
 
 const Cart = () => {
   const { cart, removeItem } = useCart();
@@ -19,7 +19,9 @@ const Cart = () => {
           {cart.addedItems.length !== 0 ? (
             cart.addedItems.map((producto) => {
               return (
-                <CartWidgetItem producto={producto} removeItem={removeItem} />
+                <li key={producto.id} style={{ width: "100%" }}>
+                  <CartWidgetItem producto={producto} removeItem={removeItem} />
+                </li>
               );
             })
           ) : (

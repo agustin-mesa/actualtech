@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
-import CustomButton from "./CustomButton";
+import CustomButton from "../CustomButton/CustomButton";
 
 const ItemCount = ({
   stockProducto,
@@ -34,7 +33,7 @@ const ItemCount = ({
     if (stockProducto === 0) {
       setContadorProducto(0);
     }
-  }, [stockProducto]);
+  }, [stockProducto, setContadorProducto]);
 
   return (
     <>
@@ -72,13 +71,24 @@ const ItemCount = ({
         </div>
         <div className="item-count__button">
           {stockProducto === 0 || limit ? (
-            <CustomButton
-              text="TERMINAR MI COMPRA"
-              onClick={() => onAdd(contadorProducto)}
-              disabled={stockProducto === 0 && true}
-              isLink={true}
-              to="/cart"
-            />
+            <>
+              <CustomButton
+                text="TERMINAR MI COMPRA"
+                onClick={() => onAdd(contadorProducto)}
+                disabled={stockProducto === 0 && true}
+                isLink={true}
+                to="/cart"
+                className="action fullwidth"
+              />
+              <CustomButton
+                text="CONTINUAR COMPRANDO"
+                onClick={() => onAdd(contadorProducto)}
+                disabled={stockProducto === 0 && true}
+                isLink={true}
+                to="/shop"
+                className="fullwidth"
+              />
+            </>
           ) : (
             <CustomButton
               text="AGREGAR AL CARRITO"
@@ -166,7 +176,7 @@ const ContainerItemCount = styled.div`
 
   .item-count__button {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 `;
 

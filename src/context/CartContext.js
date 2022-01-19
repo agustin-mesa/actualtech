@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext } from "react";
 
 // Contexto/estado global
 const CartContext = createContext();
@@ -104,16 +104,19 @@ const CartContextProvider = ({ children }) => {
           name: producto.title,
           limiteAlcanzado: producto.limiteAlcanzado,
         };
+      return producto;
     });
     setItemsCantidadAlcanzada(itemsAlcanzados);
   };
 
+  /*
   const verifyItemsAlcanzados = () => {
     const itemsAlcanzados = itemsCantidadAlcanzada.map((producto) => {
       return !producto.limiteAlcanzado;
     });
     setItemsCantidadAlcanzada(itemsAlcanzados);
   };
+  */
 
   // ---------> REMOVER ITEM <---------
   const removeItem = (id) => {

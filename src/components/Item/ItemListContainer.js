@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
 import ItemList from "./ItemList";
-import NavBarCategoria from "./NavBarCategoria";
+import NavBarCategoria from "../NavBar/NavBarCategoria";
 //-----------------REACT ROUTER-----------------
 import { useParams } from "react-router-dom";
 

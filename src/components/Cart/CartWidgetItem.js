@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //---------------- COMPONENTS ----------------
-import Precios from "./Precios";
+import Precios from "../Precios/Precios";
 
 const CartWidgetItem = ({ producto, removeItem }) => {
   return (
-    <WidgetItem key={producto.id}>
-      <Link to={`/item/${producto.id}`}>
+    <WidgetItem>
+      <div className="info">
         <img src={producto.pictureUrl} alt={producto.title} />
         <div>
           <p>{producto.title}</p>
@@ -19,7 +18,7 @@ const CartWidgetItem = ({ producto, removeItem }) => {
           />
         </div>
         <span className="cantidad">{producto.cantidad}</span>
-      </Link>
+      </div>
       <span
         className="material-icons close"
         onClick={() => removeItem(producto.id)}
@@ -30,7 +29,7 @@ const CartWidgetItem = ({ producto, removeItem }) => {
   );
 };
 
-const WidgetItem = styled.li`
+const WidgetItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,7 +46,7 @@ const WidgetItem = styled.li`
   &:hover {
     box-shadow: 0px 14px 10px -10px var(--shadow__02);
   }
-  a {
+  .info {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -62,17 +61,17 @@ const WidgetItem = styled.li`
     cursor: pointer;
     margin: 0 5px;
   }
-  a div {
+  .info div {
     flex: 1;
     font-size: 0.9em;
   }
-  a div p {
+  .info div p {
     margin: 0 0 5px;
   }
-  a div span {
+  .info div span {
     font-weight: 700;
   }
-  a span.cantidad {
+  .info span.cantidad {
     display: flex;
     text-align: center;
     align-items: center;
@@ -86,7 +85,7 @@ const WidgetItem = styled.li`
     font-weight: 700;
   }
 
-  a img {
+  .info img {
     width: 50px;
     height: 50px;
     margin: 0 5px 0 0;

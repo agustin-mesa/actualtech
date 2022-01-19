@@ -5,9 +5,9 @@ import styled, { keyframes } from "styled-components";
 //---------------- COMPONENTS ----------------
 import CartWidgetItem from "./CartWidgetItem";
 //---------------- CONTEXT ----------------
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 //-----------------FUNCTIONS-----------------
-import { formatoPeso } from "../functions/formatoPeso";
+import { formatoPeso } from "../../functions/formatoPeso";
 
 const CartWidget = () => {
   const { cart, removeItem, clear } = useCart();

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //-----------------IMAGES-----------------
-import perfilEjemplo from "../assets/images/perfil_ejemplo.jpg";
+import perfilEjemplo from "../../assets/images/perfil_ejemplo.jpg";
 
 const PhotoPerfil = () => {
   return (

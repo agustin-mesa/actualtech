@@ -1,42 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
-import Precios from "./Precios";
-import { BtnPrimary } from "./styles/StyledComponentsDefault";
-//---------------- CONTEXT ----------------
-import { useCart } from "../context/CartContext";
+import Precios from "../Precios/Precios";
+import { BtnPrimary } from "../styles/StyledComponentsDefault";
 
 const Item = ({ item }) => {
-  const { addItem, itemsCantidadAlcanzada } = useCart();
-
-  const [itemCantidadAlcanzada, setItemCantidadAlcanzada] = useState(false);
-
-  useEffect(() => {
-    if (!itemsCantidadAlcanzada.some((item) => item === undefined || false)) {
-      const limit = itemsCantidadAlcanzada.some(
-        (producto) => producto.id === item.id && true
-      );
-      setItemCantidadAlcanzada(limit);
-    }
-  }, [itemsCantidadAlcanzada, itemCantidadAlcanzada]);
-
-  const onAdd = (e) => {
-    e.preventDefault();
-    return addItem(item, 1);
-  };
-
   return (
     <ContainerItem>
-      <button
-        className="btn-add-cart"
-        disabled={item.stock === 0 || itemCantidadAlcanzada ? true : false}
-        onClick={(e) => onAdd(e)}
-      >
-        <span className="material-icons" onClick={(e) => e.preventDefault()}>
-          add_shopping_cart
-        </span>
-      </button>
       {item.envioGratis && (
         <div className="item__header">
           <span>ENVÍO GRATIS</span>

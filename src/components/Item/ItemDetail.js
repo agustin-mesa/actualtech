@@ -2,30 +2,32 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 //-----------------COMPONENTS-----------------
-import Precios from "./Precios";
+import Precios from "../Precios/Precios";
 import ItemCount from "./ItemCount";
 import toast from "react-hot-toast";
 //------------CONTEXT------------
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
 const ItemDetail = ({ item }) => {
-  const { addItem, itemsCantidadAlcanzada } = useCart();
+  const { addItem, itemsCantidadAlcanzada, cart } = useCart();
   const [contadorProducto, setContadorProducto] = useState(1);
   const [itemCantidadAlcanzada, setItemCantidadAlcanzada] = useState(false);
 
   const onAdd = (cantidad) => {
     setContadorProducto(cantidad);
     addItem(item, cantidad);
+    setItemCantidadAlcanzada(true);
     toast.success("Producto agregado.");
   };
+
   useEffect(() => {
-    if (!itemsCantidadAlcanzada.some((item) => item === undefined || false)) {
-      const limit = itemsCantidadAlcanzada.some(
+    if (!cart.addedItems.some((item) => item === undefined || false)) {
+      const inCart = cart.addedItems.some(
         (producto) => producto.id === item.id && true
       );
-      setItemCantidadAlcanzada(limit);
+      setItemCantidadAlcanzada(inCart);
     }
-  }, [itemsCantidadAlcanzada, itemCantidadAlcanzada]);
+  }, [itemsCantidadAlcanzada, cart.addedItems, item.id]);
 
   return (
     <>

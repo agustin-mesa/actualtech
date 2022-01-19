@@ -44,6 +44,10 @@ const Button = styled.div`
     transition: all 0.1s ease;
     text-decoration: none;
     text-align: center;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
   }
 
   button,
@@ -65,7 +69,7 @@ const Button = styled.div`
     opacity: 0.5;
   }
   button:disabled:hover,
-  .btn-comprar:hover {
+  .btn-comprar:disabled:hover {
     color: var(--text__03);
     background: transparent;
   }

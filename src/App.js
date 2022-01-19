@@ -3,10 +3,10 @@ import "./normalize.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 //-----------------COMPONENTS-----------------
-import NavBar from "./components/NavBar";
-import ItemListContainer from "./components/ItemListContainer";
-import ItemDetailContainer from "./components/ItemDetailContainer";
-import Cart from "./components/Cart";
+import NavBar from "./components/NavBar/NavBar";
+import ItemListContainer from "./components/Item/ItemListContainer";
+import ItemDetailContainer from "./components/Item/ItemDetailContainer";
+import Cart from "./components/Cart/Cart";
 //-----------------REACT ROUTER-----------------
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 //-----------------CONTEXT-----------------

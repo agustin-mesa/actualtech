@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 //----------------REACT ROUTER--------------
 import { NavLink } from "react-router-dom";
-//----------------DATA--------------
-import categorias from "../data/categorias";
+//-----------------FIREBASE-----------------
+import useGetItems from "../../firebase/hooks/useGetItems";
 
 const NavBarCategoria = () => {
+  const [items] = useGetItems();
+
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    let cat = items.map((item) => {
+      return item.categoria;
+    });
+    cat = cat.filter((categoria, index) => cat.indexOf(categoria) === index);
+    return setCategorias(cat);
+  }, [items]);
+
   return (
     <ContainerNavBarCat>
       <ul>
-        {categorias.map((categoria) => {
+        {categorias.map((categoria, i) => {
           return (
-            <li key={categoria.id}>
-              <NavLink to={`/shop/category/${categoria.name.toLowerCase()}`}>
-                {categoria.name}
+            <li key={i}>
+              <NavLink to={`/shop/category/${categoria.toLowerCase()}`}>
+                {categoria}
               </NavLink>
             </li>
           );

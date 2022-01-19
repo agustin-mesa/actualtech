@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //-----------------FUNCTIONS-----------------
-import { formatoPeso } from "../functions/formatoPeso";
+import { formatoPeso } from "../../functions/formatoPeso";
 
 const Precios = ({ precio, descuento, estilo }) => {
   const formatoDescuento = () => {

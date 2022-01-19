@@ -1,44 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-
 //-----------------COMPONENTS-----------------
 import Item from "./Item";
-import Loader from "react-loader-spinner";
-//-----------------DATA-----------------
-import productos from "../data/productos.js";
 //-----------------REACT ROUTER-----------------
 import { Link } from "react-router-dom";
+//-----------------FIREBASE-----------------
+import useGetItems from "../../firebase/hooks/useGetItems";
 
 const ItemList = ({ soloCategoria }) => {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const loadItems = async () => {
-    const response = await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(productos);
-      }, 2 * 1000);
-    });
-
-    return response;
-  };
-
-  useEffect(() => {
-    const getItems = async () => {
-      setIsLoading(true);
-      const result = await loadItems();
-      setIsLoading(false);
-      setItems(result);
-    };
-    getItems();
-  }, []);
+  const [items] = useGetItems();
 
   return (
     <ContainerItemList>
       {soloCategoria
         ? items.map((item) => {
             return (
-              item.categoria === soloCategoria && (
+              item.categoria.toLowerCase() === soloCategoria && (
                 <Link key={item.id} to={`/item/${item.id}`}>
                   <Item item={item} />
                 </Link>
@@ -52,9 +29,6 @@ const ItemList = ({ soloCategoria }) => {
               </Link>
             );
           })}
-      {isLoading && (
-        <Loader type="TailSpin" color="#fa6647" height={40} width={40} />
-      )}
     </ContainerItemList>
   );
 };

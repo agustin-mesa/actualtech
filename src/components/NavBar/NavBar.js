@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 //-----------------IMAGES-----------------
-import logo from "../assets/logos/logo.png";
+import logo from "../../assets/logos/logo.png";
 //-----------------COMPONENTS-----------------
-import CartWidget from "./CartWidget";
-import PhotoPerfil from "./PhotoPerfil";
+import CartWidget from "../Cart/CartWidget";
+import PhotoPerfil from "../PhotoPerfil/PhotoPerfil";
 //-----------------STYLES COMPONENTS-----------------
-import { BtnPrimary } from "./styles/StyledComponentsDefault";
+import { BtnPrimary } from "../styles/StyledComponentsDefault";
 //-----------------REACT ROUTER-----------------
 import { NavLink } from "react-router-dom";
 
