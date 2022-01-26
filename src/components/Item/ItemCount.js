@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import toast, { Toaster } from "react-hot-toast";
 import CustomButton from "../CustomButton/CustomButton";
+import { useToast } from "../../context/ToastContext";
 
 const ItemCount = ({
   stockProducto,
@@ -11,6 +11,8 @@ const ItemCount = ({
   setContadorProducto,
   limit,
 }) => {
+  const { toast } = useToast();
+
   const handleChange = (e) => {
     let name = e.target.name;
     switch (name) {
@@ -98,7 +100,6 @@ const ItemCount = ({
           )}
         </div>
       </ContainerItemCount>
-      <Toaster />
     </>
   );
 };
