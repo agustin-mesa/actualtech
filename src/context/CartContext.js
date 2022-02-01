@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 
 // Contexto/estado global
 const CartContext = createContext();
@@ -12,7 +12,12 @@ const INITIAL_STATE = {
 };
 
 const CartContextProvider = ({ children }) => {
-  const [cart, setCart] = useState(INITIAL_STATE);
+  // Obtenemos el estado del cart en el localstorage
+  const cartLS = localStorage.getItem("cart")
+    ? localStorage.getItem("cart")
+    : JSON.stringify(INITIAL_STATE);
+
+  const [cart, setCart] = useState(JSON.parse(cartLS));
   const [itemsCantidadAlcanzada, setItemsCantidadAlcanzada] = useState([]);
 
   // ---------> AÑADIR ITEM <---------
@@ -153,6 +158,10 @@ const CartContextProvider = ({ children }) => {
     setCart(INITIAL_STATE);
     setItemsCantidadAlcanzada([]);
   };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart, setCart]);
 
   return (
     <CartContext.Provider

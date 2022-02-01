@@ -37,8 +37,8 @@
 }
 
 *::-webkit-scrollbar {
-  width: 6px; /* Tamaño del scroll en vertical */
-  height: 6px; /* Tamaño del scroll en horizontal */
+  width: 10px; /* Tamaño del scroll en vertical */
+  height: 10px; /* Tamaño del scroll en horizontal */
 }
 /* Ponemos un color de fondo y redondeamos las esquinas del thumb */
 *::-webkit-scrollbar-thumb {

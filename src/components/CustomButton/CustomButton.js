@@ -9,11 +9,17 @@ const CustomButton = ({
   isLink,
   to = "/",
   className,
+  minWidth = "225px",
+  width = "60%",
 }) => {
   return (
-    <Button>
+    <Button minWidth={minWidth} width={width}>
       {!isLink ? (
-        <button onClick={onClick} disabled={disabled}>
+        <button
+          onClick={onClick}
+          disabled={disabled}
+          className={`btn-comprar ${className}`}
+        >
           {text}
         </button>
       ) : (
@@ -54,8 +60,8 @@ const Button = styled.div`
   .btn-comprar.action {
     background: var(--bg__05);
     color: var(--text__05);
-    width: 60%;
-    min-width: 225px;
+    width: ${(props) => props.width};
+    min-width: ${(props) => props.minWidth};
   }
   .btn-comprar.fullwidth {
     width: 100%;

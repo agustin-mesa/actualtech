@@ -28,8 +28,9 @@ const InputStandard = styled.div`
   }
   .MuiTextField-root .MuiInputLabel-root {
     font-family: "Inter", sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text__01);
+    opacity: 0.5;
     margin: 0 15px;
   }
   .MuiTextField-root .MuiInputLabel-root.Mui-focused {

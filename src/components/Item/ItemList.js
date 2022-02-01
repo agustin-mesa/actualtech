@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 //-----------------COMPONENTS-----------------
 import Item from "./Item";
@@ -6,29 +6,43 @@ import Item from "./Item";
 import { Link } from "react-router-dom";
 //-----------------FIREBASE-----------------
 import useGetItems from "../../firebase/hooks/useGetItems";
+import SkeletonItems from "./SkeletonItems";
 
 const ItemList = ({ soloCategoria }) => {
   const [items] = useGetItems();
+  const [showSkeleton, setShowSkeleton] = useState(true);
+
+  useEffect(() => {
+    if (items.length !== 0) {
+      setShowSkeleton(false);
+    }
+  }, [items]);
 
   return (
     <ContainerItemList>
-      {soloCategoria
-        ? items.map((item) => {
-            return (
-              item.categoria.toLowerCase() === soloCategoria && (
-                <Link key={item.id} to={`/item/${item.id}`}>
-                  <Item item={item} />
-                </Link>
-              )
-            );
-          })
-        : items.map((item) => {
-            return (
-              <Link key={item.id} to={`/item/${item.id}`}>
-                <Item item={item} />
-              </Link>
-            );
-          })}
+      {!showSkeleton ? (
+        <>
+          {soloCategoria
+            ? items.map((item) => {
+                return (
+                  item.categoria.toLowerCase() === soloCategoria && (
+                    <Link key={item.id} to={`/item/${item.id}`}>
+                      <Item item={item} />
+                    </Link>
+                  )
+                );
+              })
+            : items.map((item) => {
+                return (
+                  <Link key={item.id} to={`/item/${item.id}`}>
+                    <Item item={item} />
+                  </Link>
+                );
+              })}
+        </>
+      ) : (
+        <SkeletonItems />
+      )}
     </ContainerItemList>
   );
 };

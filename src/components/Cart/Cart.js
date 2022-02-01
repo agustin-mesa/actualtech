@@ -5,30 +5,15 @@ import styled from "styled-components";
 import { useCart } from "../../context/CartContext";
 import { formatoPeso } from "../../functions/formatoPeso";
 //---------------- COMPONENT ----------------
-import CartWidgetItem from "./CartWidgetItem";
+import TuCarrito from "./TuCarrito";
 import CustomButton from "../CustomButton/CustomButton";
 
 const Cart = () => {
-  const { cart, removeItem } = useCart();
+  const { cart } = useCart();
 
   return (
     <CartContainer>
-      <div className="cart__items">
-        <h3>Tu carrito</h3>
-        <ul>
-          {cart.addedItems.length !== 0 ? (
-            cart.addedItems.map((producto) => {
-              return (
-                <li key={producto.id} style={{ width: "100%" }}>
-                  <CartWidgetItem producto={producto} removeItem={removeItem} />
-                </li>
-              );
-            })
-          ) : (
-            <p>No hay productos en tu carrito</p>
-          )}
-        </ul>
-      </div>
+      <TuCarrito />
       <div className="info-compra">
         <h3>TOTAL: {formatoPeso(Math.round(cart.totalPrice))}</h3>
         {cart.addedItems.length !== 0 ? (
@@ -36,6 +21,7 @@ const Cart = () => {
             <CustomButton
               text="FINALIZAR COMPRA"
               isLink={true}
+              to="/finalizar-compra"
               className="action fullwidth"
             />
             <CustomButton
@@ -78,33 +64,6 @@ const CartContainer = styled.div`
   p {
     font-size: 1em;
     color: var(--text__01);
-  }
-
-  .cart__items {
-    border-radius: 10px;
-    background: var(--bg__08);
-    width: 100%;
-    padding: 0 0 35px 10px;
-  }
-
-  h3 {
-    color: var(--text__01);
-    font-size: 1.5em;
-    font-weight: 700;
-    margin-bottom: 5px;
-  }
-
-  .cart__items ul {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    list-style: none;
-    flex-direction: column;
-    margin: 0 0 5px;
-    min-height: 400px;
-    max-height: 450px;
-    padding: 0;
-    overflow-y: auto;
   }
 
   .info-compra {

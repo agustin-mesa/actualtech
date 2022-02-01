@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 //-----------------IMAGES-----------------
@@ -6,14 +6,56 @@ import logo from "../../assets/logos/logo.png";
 //-----------------COMPONENTS-----------------
 import CartWidget from "../Cart/CartWidget";
 import PhotoPerfil from "../PhotoPerfil/PhotoPerfil";
-//-----------------STYLES COMPONENTS-----------------
-import { BtnPrimary } from "../styles/StyledComponentsDefault";
+import CustomButton from "../CustomButton/CustomButton";
 //-----------------REACT ROUTER-----------------
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+//-----------------CONTEXT-----------------
+import { useAuth } from "../../context/AuthContext";
+import { useToast } from "../../context/ToastContext";
+//-----------------FIREBASE-----------------
+import { auth } from "../../firebase/firebase";
+import Popup from "../Popup/Popup";
 
-const NavBar = ({ sesionIniciada }) => {
+const NavBar = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [showPopup, setShowPopup] = useState(false);
+
+  // Función asíncrona para cerrar sesión
+  const handleSignOut = async (e) => {
+    e.preventDefault();
+    try {
+      // Función de Firebase para cerrar sesión con cualquier proveedor
+      // (Facebook, Gmail o Email-Password)
+      await auth.signOut();
+      setShowPopup(false);
+      navigate("/");
+    } catch (error) {
+      let msg;
+
+      switch (error.code) {
+        default:
+          msg = "Hubo un error al intentar cerrar sesión, inténtalo más tarde.";
+          break;
+      }
+      setShowPopup(false);
+      toast.error(msg);
+    }
+  };
+
   return (
-    <header>
+    <header
+      style={{
+        background: "var(--bg__09",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        boxShadow: "0px 14px 40px -10px var(--shadow__01)",
+        zIndex: 9999,
+      }}
+    >
       <ContainerNavBar>
         <div className="navbar__logo">
           <NavLink to="/" exact="true">
@@ -21,26 +63,44 @@ const NavBar = ({ sesionIniciada }) => {
           </NavLink>
         </div>
         <ul className="navbar__menu-list">
-          <li>
-            <NavLink to="/" exact="true">
-              Inicio
-            </NavLink>
-          </li>
+          {!user && (
+            <li>
+              <NavLink to="/" exact="true">
+                Inicio
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink to="/shop/">Tienda</NavLink>
           </li>
-          <li>
-            <NavLink to="/sobre-nosotros">Sobre nosotros</NavLink>
-          </li>
         </ul>
         <div className="navbar__menu">
-          {sesionIniciada ? (
+          <CartWidget />
+          {user ? (
             <>
-              <CartWidget />
-              <PhotoPerfil />
+              <PhotoPerfil
+                photo={user.photoUrl}
+                onClick={() => setShowPopup(!showPopup)}
+              />
             </>
           ) : (
-            <BtnPrimary>Iniciar sesión</BtnPrimary>
+            <CustomButton
+              text="Iniciar sesión"
+              className="action"
+              isLink={true}
+              link="/"
+              minWidth="auto"
+              width="110px"
+            />
+          )}
+          {showPopup && (
+            <Popup
+              onClickOne={handleSignOut}
+              onClickTwo={() => setShowPopup(!showPopup)}
+              popupText="¿Desea cerrar sesión?"
+              btnTextOne="Cerrar sesión"
+              btnTextTwo="No, mejor no"
+            />
           )}
         </div>
       </ContainerNavBar>
@@ -49,18 +109,12 @@ const NavBar = ({ sesionIniciada }) => {
 };
 
 const ContainerNavBar = styled.nav`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  padding: 5px 10%;
+  padding: 5px 10% 0;
   max-width: 1100px;
-  z-index: 9999;
-  background: var(--bg__09);
   margin: auto;
 
   .navbar__logo img {
@@ -90,6 +144,7 @@ const ContainerNavBar = styled.nav`
   }
 
   .navbar__menu {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;

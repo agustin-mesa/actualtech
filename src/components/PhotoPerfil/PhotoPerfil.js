@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-//-----------------IMAGES-----------------
-import perfilEjemplo from "../../assets/images/perfil_ejemplo.jpg";
-
-const PhotoPerfil = () => {
+const PhotoPerfil = ({ photo, onClick }) => {
   return (
-    <ContainerPhotoPerfil>
-      <img src={perfilEjemplo} alt="Agustín Mesa" />
+    <ContainerPhotoPerfil onClick={onClick}>
+      {photo ? (
+        <img src={photo} alt="Foto Perfil" />
+      ) : (
+        <span className="material-icons">account_circle</span>
+      )}
     </ContainerPhotoPerfil>
   );
 };
@@ -20,9 +21,16 @@ const ContainerPhotoPerfil = styled.div`
   height: 40px;
   border-radius: 50px;
   overflow: hidden;
+  user-select: none;
+
   img {
     width: 40px;
     height: 40px;
+  }
+  span {
+    font-size: 2em;
+    color: var(--text__01);
+    cursor: pointer;
   }
 `;
 
