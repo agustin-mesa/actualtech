@@ -262,6 +262,14 @@ const ContainerLogin = styled.div`
   form span b {
     cursor: pointer;
   }
+  @media only screen and (max-width: 760px) {
+    & {
+      background-position: left;
+    }
+    form {
+      width: 70%;
+    }
+  }
 `;
 
 export default Login;

@@ -31,8 +31,7 @@ const TuCarrito = () => {
 const ContainerTuCarrito = styled.div`
   border-radius: 10px;
   background: var(--bg__08);
-  width: 100%;
-  padding: 0 0 35px 10px;
+  padding: 0 10px 35px 10px;
 
   h3 {
     color: var(--text__01);

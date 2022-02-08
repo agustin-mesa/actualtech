@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-
+import styled, { keyframes } from "styled-components";
+import { useMediaQuery } from "react-responsive";
 //-----------------IMAGES-----------------
 import logo from "../../assets/logos/logo.png";
 //-----------------COMPONENTS-----------------
@@ -20,7 +20,9 @@ const NavBar = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
   const [showPopup, setShowPopup] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   // Función asíncrona para cerrar sesión
   const handleSignOut = async (e) => {
@@ -47,7 +49,7 @@ const NavBar = () => {
   return (
     <header
       style={{
-        background: "var(--bg__09",
+        background: "var(--bg__09)",
         position: "fixed",
         top: 0,
         left: 0,
@@ -62,20 +64,40 @@ const NavBar = () => {
             <img src={logo} alt="ActualTech" />
           </NavLink>
         </div>
-        <ul className="navbar__menu-list">
-          {!user && (
+
+        {isMobile ? (
+          showMenu && (
+            <ul
+              className="navbar__menu-list"
+              onClick={() => setTimeout(() => setShowMenu(!showMenu), 300)}
+            >
+              {!user && (
+                <li>
+                  <NavLink to="/" exact="true">
+                    Inicio
+                  </NavLink>
+                </li>
+              )}
+              <li>
+                <NavLink to="/shop/">Tienda</NavLink>
+              </li>
+            </ul>
+          )
+        ) : (
+          <ul className="navbar__menu-list">
+            {!user && (
+              <li>
+                <NavLink to="/" exact="true">
+                  Inicio
+                </NavLink>
+              </li>
+            )}
             <li>
-              <NavLink to="/" exact="true">
-                Inicio
-              </NavLink>
+              <NavLink to="/shop/">Tienda</NavLink>
             </li>
-          )}
-          <li>
-            <NavLink to="/shop/">Tienda</NavLink>
-          </li>
-        </ul>
+          </ul>
+        )}
         <div className="navbar__menu">
-          <CartWidget />
           {user ? (
             <>
               <PhotoPerfil
@@ -84,14 +106,25 @@ const NavBar = () => {
               />
             </>
           ) : (
-            <CustomButton
-              text="Iniciar sesión"
-              className="action"
-              isLink={true}
-              link="/"
-              minWidth="auto"
-              width="110px"
-            />
+            <div className="btn-action">
+              <CustomButton
+                text="Iniciar sesión"
+                className="action"
+                isLink={true}
+                link="/"
+                minWidth="auto"
+                width="110px"
+              />
+            </div>
+          )}
+          <CartWidget />
+          {isMobile && (
+            <span
+              className="material-icons menu-btn"
+              onClick={() => setShowMenu(!showMenu)}
+            >
+              {showMenu ? "close" : "menu"}
+            </span>
           )}
           {showPopup && (
             <Popup
@@ -108,15 +141,31 @@ const NavBar = () => {
   );
 };
 
+const showMenu = keyframes`
+  0%{
+    opacity: 0;
+    transform: translateY(-10px) scaleY(1.5);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px) scaleY(1);
+  }
+`;
+
 const ContainerNavBar = styled.nav`
+  position: relative;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  padding: 5px 10% 0;
+  padding: 10px 10% 5px;
   max-width: 1100px;
   margin: auto;
 
+  .navbar__logo {
+    z-index: 1002;
+  }
   .navbar__logo img {
     width: 130px;
   }
@@ -149,6 +198,58 @@ const ContainerNavBar = styled.nav`
     align-items: center;
     justify-content: flex-end;
     flex-direction: row;
+    z-index: 1002;
+  }
+  .menu-btn {
+    font-size: 2em;
+    color: var(--text__01);
+    margin-left: 10px;
+    z-index: 1003;
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 760px) {
+    & {
+      padding: 10px 3% 5px;
+    }
+    .navbar__menu-list {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      z-index: 1001;
+      background: var(--bg__08);
+      padding: 0;
+      margin: 0;
+      animation: ${showMenu} 0.5s ease forwards;
+    }
+
+    .navbar__menu-list li {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .navbar__menu-list li a {
+      display: block;
+      padding: 25px 0px;
+    }
+    .btn-action {
+      flex: 1;
+    }
+  }
+  @media only screen and (max-width: 460px) {
+    & {
+      flex-direction: column;
+    }
+    .navbar__logo {
+      padding: 10px 0 0;
+    }
+    .navbar__menu {
+      justify-content: flex-end;
+      width: 100%;
+    }
   }
 `;
 

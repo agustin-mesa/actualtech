@@ -23,6 +23,12 @@ const ContainerItemList = styled.div`
   flex-direction: column;
   padding: 80px 60px 0;
   max-width: 1000px;
+
+  @media only screen and (max-width: 600px) {
+    & {
+      padding: 120px 10px 0;
+    }
+  }
 `;
 
 export default ItemListContainer;

@@ -67,6 +67,7 @@ const showList = keyframes`
 const ContainerCartWidget = styled.div`
   position: relative;
   user-select: none;
+  z-index: 1003;
 
   .icon__cart {
     position: relative;
@@ -167,6 +168,22 @@ const ContainerCartWidget = styled.div`
   }
   .cart__list-btn a:hover {
     text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 460px) {
+    & {
+      position: initial;
+    }
+
+    .icon__cart {
+      margin: 0 20px 0 0;
+    }
+    .cart__list {
+      left: 0;
+      right: 0;
+      top: 75px;
+      width: auto;
+    }
   }
 `;
 

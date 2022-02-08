@@ -58,6 +58,18 @@ const ContainerItemList = styled.ul`
   a {
     text-decoration: none;
   }
+
+  @media only screen and (max-width: 860px) {
+    & {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    & {
+      gap: 30px 15px;
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 `;
 
 export default ItemList;

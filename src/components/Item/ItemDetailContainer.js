@@ -42,6 +42,11 @@ const ContainerItemDetail = styled.div`
   align-items: center;
   justify-content: center;
   padding: 80px 10% 0;
+  @media only screen and (max-width: 760px) {
+    & {
+      padding: 120px 20px 0;
+    }
+  }
 `;
 
 export default ItemDetailContainer;

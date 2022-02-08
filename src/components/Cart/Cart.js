@@ -46,9 +46,9 @@ const Cart = () => {
 
 const CartContainer = styled.div`
   display: grid;
-  grid-template-columns: 60% 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 45px 30px;
-  margin: 80px 60px 0;
+  padding: 80px 10% 0;
   width: 100%;
   max-width: 1000px;
 
@@ -68,10 +68,20 @@ const CartContainer = styled.div`
 
   .info-compra {
     background: var(--bg__08);
-    width: 100%;
     border-radius: 10px;
     padding: 0 10px 35px;
     max-height: 150px;
+  }
+
+  @media only screen and (max-width: 760px) {
+    & {
+      padding: 120px 20px 0;
+    }
+  }
+  @media only screen and (max-width: 660px) {
+    & {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 `;
 

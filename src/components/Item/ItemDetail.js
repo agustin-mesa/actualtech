@@ -130,7 +130,6 @@ const DetailItem = styled.div`
   }
   .body__header p.cuotas {
     border-bottom: 1px solid #fa6647;
-    width: 100%;
     padding: 5px;
     color: var(--text__02);
     font-size: 0.9em;
@@ -146,6 +145,21 @@ const DetailItem = styled.div`
   }
   .body__bottom {
     width: 100%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    & {
+      flex-direction: column;
+    }
+    .item__img {
+      height: 40vh;
+    }
+    .item__img img {
+      max-width: 400px;
+    }
+    .item__detalles {
+      padding: 20px 0 0;
+    }
   }
 `;
 

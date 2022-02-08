@@ -3,8 +3,8 @@ import styled, { keyframes } from "styled-components";
 import CustomButton from "../CustomButton/CustomButton";
 
 const Popup = ({
-  onClickOne,
-  onClickTwo,
+  onClickOne, // Recibe función para la acción del primer btn
+  onClickTwo, // Recibe función para solamente cerrar el popup
   popupText,
   btnTextOne,
   btnTextTwo,
@@ -35,7 +35,7 @@ const Popup = ({
           />
         )}
       </div>
-      <div className="hideMenu" onClick={onClickOne}></div>
+      <div className="hideMenu" onClick={onClickTwo}></div>
     </ContainerPopup>
   );
 };

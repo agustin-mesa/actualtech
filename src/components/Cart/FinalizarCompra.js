@@ -167,15 +167,13 @@ const FinalizarCompra = () => {
 
 const ContainerFinalizarCompra = styled.div`
   display: grid;
-  grid-template-columns: 60% 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 45px 30px;
-  margin: 80px 60px 0;
+  padding: 80px 10% 0;
   width: 100%;
   max-width: 1000px;
 
   form {
-    padding: 20px 30px;
-    width: 95%;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -212,6 +210,16 @@ const ContainerFinalizarCompra = styled.div`
   }
   form span b {
     cursor: pointer;
+  }
+  @media only screen and (max-width: 760px) {
+    & {
+      padding: 120px 20px 0;
+    }
+  }
+  @media only screen and (max-width: 660px) {
+    & {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 `;
 

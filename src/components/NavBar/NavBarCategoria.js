@@ -43,6 +43,7 @@ const ContainerNavBarCat = styled.div`
   background: var(--bg__05);
   border-radius: 8px 8px 0 0;
   ul {
+    padding: 0;
     list-style: none;
     display: flex;
     align-items: center;
